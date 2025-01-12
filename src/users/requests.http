@@ -17,6 +17,13 @@ Content-Type: application/json
     "password": "12345"
 }
 
+### Get Me
+GET http://localhost:3000/auth/me
+
+### Sign out
+POST http://localhost:3000/auth/signout
+
+
 ### Get all users
 GET http://localhost:3000/auth/?email=user1@gmail.com
 
