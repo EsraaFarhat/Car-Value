@@ -1,6 +1,8 @@
-const dbConfig = {
+import { DataSource } from 'typeorm';
+
+const options: any = {
   synchronize: false,
-  migrations: ['migrations/*.js'],
+  migrations: ['src/migrations/*.ts'], // assuming you're using TypeScript
   cli: {
     migrationsDir: 'migrations',
   },
@@ -8,33 +10,33 @@ const dbConfig = {
 
 switch (process.env.NODE_ENV) {
   case 'development':
-    Object.assign(dbConfig, {
+    Object.assign(options, {
       type: 'sqlite',
       database: 'db.sqlite',
-      entities: ['**/*.entity.js'],
+      entities: ['src/**/*.entity.ts'],
     });
     break;
   case 'test':
-    Object.assign(dbConfig, {
+    Object.assign(options, {
       type: 'sqlite',
       database: 'test.sqlite',
-      entities: ['**/*.entity.ts'],
+      entities: ['src/**/*.entity.ts'],
       migrationsRun: true,
     });
     break;
   case 'production':
-    Object.assign(dbConfig, {
+    Object.assign(options, {
       type: 'postgres',
       url: process.env.DATABASE_URL,
       migrationsRun: true,
-      entities: ['**/*.entity.js'],
+      entities: ['dist/**/*.entity.js'],
       ssl: {
         rejectUnauthorized: false,
       },
     });
     break;
   default:
-    throw new Error('unknown environment');
+    throw new Error('Unknown environment');
 }
 
-module.exports = dbConfig;
+export const AppDataSource = new DataSource(options);
