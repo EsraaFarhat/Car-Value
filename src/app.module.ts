@@ -2,13 +2,15 @@ import { MiddlewareConsumer, Module, ValidationPipe } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_PIPE } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import cookieSession from 'cookie-session';
+// import cookieSession from 'cookie-session';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Report } from './reports/report.entity';
 import { ReportsModule } from './reports/reports.module';
 import { User } from './users/user.entity';
 import { UsersModule } from './users/users.module';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const cookieSession = require('cookie-session');
 
 @Module({
   imports: [
